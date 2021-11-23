@@ -1,0 +1,161 @@
+import '../Sass/App.sass'
+// React
+import React, { useState, useEffect } from 'react'
+// Assets
+import logo from '../../Assets/logo.svg'
+import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
+
+const data = [
+  {
+    uv: 20,
+    pv: 2400,
+    amt: 2400,
+  },
+  {
+    uv: 50,
+    pv: 1398,
+    amt: 2210,
+  },
+  {
+    uv: 44,
+    pv: 9800,
+    amt: 2290,
+  },
+  {
+    uv: 33,
+    pv: 3908,
+    amt: 2000,
+  },
+  {
+    uv: 88,
+    pv: 4800,
+    amt: 2181,
+  },
+  {
+    uv: 100,
+    pv: 3800,
+    amt: 2500,
+  },
+  {
+    uv: 22,
+    pv: 4300,
+    amt: 2100,
+  },
+	{
+    uv: 33,
+    pv: 4300,
+    amt: 2100,
+  },
+	{
+    uv: 22,
+    pv: 4300,
+    amt: 2100,
+  },
+	{
+    uv: 14,
+    pv: 4300,
+    amt: 2100,
+  },
+	{
+    uv: 42,
+    pv: 4300,
+    amt: 2100,
+  },
+	{
+    uv: 22,
+    pv: 4300,
+    amt: 2100,
+  },
+	{
+    uv: 55,
+    pv: 4300,
+    amt: 2100,
+  },
+];
+
+export default function App() {
+	// you should always use function components!
+	// class components are practically deprecated
+
+	// state hooks replace the the state in a function component
+	const [countHookExample, setCountHookExample] = useState(0)
+
+	// effect hooks replace the lifecycle methods in a function component
+	useEffect(
+		() => {
+			console.log('mouted')
+			return () => {
+				console.log('exited')
+			}
+		},
+		[
+			/**
+			 * variables that trigger this effect.
+			 * if [] triggers only on mounting.
+			 * if undefined trigers on every render.
+			 */
+		]
+	)
+
+	return (
+		<div className='app'>
+
+			<div className='graph'>
+				<ResponsiveContainer width="100%" height="100%">
+					<AreaChart
+						data={data}
+						margin={{
+							top: 30,
+							right: 30,
+							left: 0,
+							bottom: 30,
+						}}
+					>
+						<XAxis tick={false} />
+						<YAxis />
+						<Tooltip />
+						<Area type="linear" dataKey="uv" strokeWidth="3px" stroke="#8884d8" fill="transparent" />
+					</AreaChart>
+				</ResponsiveContainer>
+			</div>
+
+			<div className='right'>
+				<div className='top-right'>
+					Some information
+				</div>
+				
+				<div className='bottom-right'>
+					Some more information
+				</div>
+			</div>
+
+			{/*<header className='App-header'>
+				<img src={logo} className='App-logo' alt='logo' />
+				<p>
+					Edit <code>src/App.tsx</code> and save to reload.
+				</p>
+				<a
+					className='App-link'
+					href='https://reactjs.org'
+					target='_blank'
+					rel='noopener noreferrer'
+				>
+					Learn React
+				</a>
+				<div>
+					<p>
+						You have clicked the button {countHookExample} times{' '}
+						<span
+							className='button'
+							onClick={() =>
+								setCountHookExample(countHookExample + 1)
+							}
+						>
+							INC
+						</span>
+					</p>
+				</div>
+						</header>*/}
+		</div>
+	)
+}

@@ -99,11 +99,46 @@ export default class App extends Component {
 
 				<div className='right'>
 					<div className='top-right'>
-						Some information
+						<table className = "table" style={{color: 'white'}}>
+              <thead>
+                <tr>
+                  <th>
+                    <h2>Generals</h2>
+                  </th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th>OS:</th>
+                  <td>Windows 10 pro</td>
+                </tr>
+                <tr>
+                  <th>CPU:</th>
+                  <td>Intel(R) Core(TM) i7-8700 CPU @ 3.20GHz</td>
+                </tr>
+                <tr>
+                  <th>GPU:</th>
+                  <td>NVIDIA GeForce RTX 3060</td>
+                </tr>
+                <tr>
+                  <th>RAM:</th>
+                  <td>32GB</td>
+                </tr>
+                <tr>
+                  <th>HDD:</th>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <th>SSD:</th>
+                  <td>1</td>
+                </tr>
+              </tbody>
+            </table>
 					</div>
 				
 					<div className='bottom-right'>
-						Some more information
+						Some more informations
 					</div>
 				</div>
 			</div>

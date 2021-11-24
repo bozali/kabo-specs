@@ -1,4 +1,5 @@
 import '../Sass/App.sass'
+import inputData from '../../mock/input.json';
 // React
 import React, { useState, useEffect, Component, ReactNode } from 'react'
 // Assets
@@ -73,6 +74,52 @@ const data = [
   },
 ];
 
+const topRightData = inputData.map( (specs) =>{
+  return (
+    <table className = "table" style={{color: 'white'}}>
+              <thead>
+                <tr>
+                  <th>
+                    <h2>Generals</h2>
+                  </th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th>OS:</th>
+                  <td>{specs.os}</td>
+                </tr>
+                <tr>
+                  <th>CPU:</th>
+                  <td>{specs.cpu}</td>
+                </tr>
+                <tr>
+                  <th>GPU:</th>
+                  <td>{specs.gpu}</td>
+                </tr>
+                <tr>
+                  <th>RAM:</th>
+                  <td>{specs.ram}GB</td>
+                </tr>
+                <tr>
+                  <th>HDD:</th>
+                  <td>{specs.hdd}</td>
+                </tr>
+                <tr>
+                  <th>SSD:</th>
+                  <td>{specs.ssd}</td>
+                </tr>
+              </tbody>
+            </table>
+  )
+})
+
+const bottomRightData = inputData.map( (componentUsage) =>{
+  return (
+    <p className ='precent'><b>{componentUsage.cpuusage}%</b></p>
+  )
+})
 
 export default class App extends Component {
 	public render(): ReactNode {
@@ -99,46 +146,15 @@ export default class App extends Component {
 
 				<div className='right'>
 					<div className='top-right'>
-						<table className = "table" style={{color: 'white'}}>
-              <thead>
-                <tr>
-                  <th>
-                    <h2>Generals</h2>
-                  </th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th>OS:</th>
-                  <td>Windows 10 pro</td>
-                </tr>
-                <tr>
-                  <th>CPU:</th>
-                  <td>Intel(R) Core(TM) i7-8700 CPU @ 3.20GHz</td>
-                </tr>
-                <tr>
-                  <th>GPU:</th>
-                  <td>NVIDIA GeForce RTX 3060</td>
-                </tr>
-                <tr>
-                  <th>RAM:</th>
-                  <td>32GB</td>
-                </tr>
-                <tr>
-                  <th>HDD:</th>
-                  <td>2</td>
-                </tr>
-                <tr>
-                  <th>SSD:</th>
-                  <td>1</td>
-                </tr>
-              </tbody>
-            </table>
+            <div className ="content">
+              {topRightData}
+            </div>
 					</div>
 				
-					<div className='bottom-right'>
-						Some more informations
+					<div className='bottom-right' style={{color: 'white'}}>
+						<div className = "content">
+              {bottomRightData}
+            </div>
 					</div>
 				</div>
 			</div>

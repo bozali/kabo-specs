@@ -1,6 +1,6 @@
 import '../Sass/App.sass'
 // React
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, Component, ReactNode } from 'react'
 // Assets
 import logo from '../../Assets/logo.svg'
 import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
@@ -73,89 +73,127 @@ const data = [
   },
 ];
 
-export default function App() {
-	// you should always use function components!
-	// class components are practically deprecated
 
-	// state hooks replace the the state in a function component
-	const [countHookExample, setCountHookExample] = useState(0)
-
-	// effect hooks replace the lifecycle methods in a function component
-	useEffect(
-		() => {
-			console.log('mouted')
-			return () => {
-				console.log('exited')
-			}
-		},
-		[
-			/**
-			 * variables that trigger this effect.
-			 * if [] triggers only on mounting.
-			 * if undefined trigers on every render.
-			 */
-		]
-	)
-
-	return (
+export default class App extends Component {
+	public render(): ReactNode {
+		return (
 		<div className='app'>
-
-			<div className='graph'>
-				<ResponsiveContainer width="100%" height="100%">
-					<AreaChart
-						data={data}
-						margin={{
-							top: 30,
-							right: 30,
-							left: 0,
-							bottom: 30,
-						}}
-					>
-						<XAxis tick={false} />
-						<YAxis />
-						<Tooltip />
-						<Area type="linear" dataKey="uv" strokeWidth="3px" stroke="#8884d8" fill="transparent" />
-					</AreaChart>
-				</ResponsiveContainer>
-			</div>
-
-			<div className='right'>
-				<div className='top-right'>
-					Some information
-				</div>
-				
-				<div className='bottom-right'>
-					Some more information
-				</div>
-			</div>
-
-			{/*<header className='App-header'>
-				<img src={logo} className='App-logo' alt='logo' />
-				<p>
-					Edit <code>src/App.tsx</code> and save to reload.
-				</p>
-				<a
-					className='App-link'
-					href='https://reactjs.org'
-					target='_blank'
-					rel='noopener noreferrer'
-				>
-					Learn React
-				</a>
-				<div>
-					<p>
-						You have clicked the button {countHookExample} times{' '}
-						<span
-							className='button'
-							onClick={() =>
-								setCountHookExample(countHookExample + 1)
-							}
+				<div className='graph'>
+					<ResponsiveContainer width="100%" height="100%">
+						<AreaChart
+							data={data}
+							margin={{
+								top: 30,
+								right: 30,
+								left: 0,
+								bottom: 30,
+							}}
 						>
-							INC
-						</span>
-					</p>
+							<XAxis tick={false} />
+							<YAxis />
+							<Tooltip />
+							<Area type="linear" dataKey="uv" strokeWidth="3px" stroke="#8884d8" fill="transparent" />
+						</AreaChart>
+					</ResponsiveContainer>
 				</div>
-						</header>*/}
-		</div>
-	)
+
+				<div className='right'>
+					<div className='top-right'>
+						Some information
+					</div>
+				
+					<div className='bottom-right'>
+						Some more information
+					</div>
+				</div>
+			</div>
+		);
+	}
 }
+
+//export default function App() {
+//	// you should always use function components!
+//	// class components are practically deprecated
+//
+//	// state hooks replace the the state in a function component
+//	const [countHookExample, setCountHookExample] = useState(0)
+//
+//	// effect hooks replace the lifecycle methods in a function component
+//	useEffect(
+//		() => {
+//			console.log('mouted')
+//			return () => {
+//				console.log('exited')
+//			}
+//		},
+//		[
+//			/**
+//			 * variables that trigger this effect.
+//			 * if [] triggers only on mounting.
+//			 * if undefined trigers on every render.
+//			 */
+//		]
+//	)
+//
+//	return (
+//		<div className='app'>
+//
+//			<div className='graph'>
+//				<ResponsiveContainer width="100%" height="100%">
+//					<AreaChart
+//						data={data}
+//						margin={{
+//							top: 30,
+//							right: 30,
+//							left: 0,
+//							bottom: 30,
+//						}}
+//					>
+//						<XAxis tick={false} />
+//						<YAxis />
+//						<Tooltip />
+//						<Area type="linear" dataKey="uv" strokeWidth="3px" stroke="#8884d8" fill="transparent" />
+//					</AreaChart>
+//				</ResponsiveContainer>
+//			</div>
+//
+//			<div className='right'>
+//				<div className='top-right'>
+//					Some information
+//				</div>
+//				
+//				<div className='bottom-right'>
+//					Some more information
+//				</div>
+//			</div>
+//
+//			{/*<header className='App-header'>
+//				<img src={logo} className='App-logo' alt='logo' />
+//				<p>
+//					Edit <code>src/App.tsx</code> and save to reload.
+//				</p>
+//				<a
+//					className='App-link'
+//					href='https://reactjs.org'
+//					target='_blank'
+//					rel='noopener noreferrer'
+//				>
+//					Learn React
+//				</a>
+//				<div>
+//					<p>
+//						You have clicked the button {countHookExample} times{' '}
+//						<span
+//							className='button'
+//							onClick={() =>
+//								setCountHookExample(countHookExample + 1)
+//							}
+//						>
+//							INC
+//						</span>
+//					</p>
+//				</div>
+//						</header>*/}
+//		</div>
+//	)
+//}

@@ -33,7 +33,7 @@ CPUUsage PerfomanceMonitor::GetCPUUsage() const noexcept
 }
 
 
-MemoryUsage PerfomanceMonitor::FetchMemoryUsage() const noexcept
+MemoryUsage PerfomanceMonitor::GetMemoryUsage() const noexcept
 {
     MEMORYSTATUSEX memory_status;
     SecureZeroMemory(&memory_status, sizeof(MEMORYSTATUSEX));
@@ -50,6 +50,12 @@ MemoryUsage PerfomanceMonitor::FetchMemoryUsage() const noexcept
 }
 
 
+GPUUsage PerfomanceMonitor::GetGPUUsage() const noexcept
+{
+    return GPUUsage();
+}
+
+
 CPU PerfomanceMonitor::FetchCPUInfo() const
 {
     DWORD length = sizeof(SYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX);
@@ -62,4 +68,3 @@ CPU PerfomanceMonitor::FetchCPUInfo() const
 
     return CPU();
 }
-

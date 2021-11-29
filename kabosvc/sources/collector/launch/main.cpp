@@ -1,56 +1,54 @@
-#include <Windows.h>
-#include <Psapi.h>
-#include <Pdh.h>
-#include <PdhMsg.h>
+#include <collector/net/usage_sender.h>
+#include <collector/monitor/components.h>
+#include <collector/monitor/perfomance_monitor.h>
 
+#include <memory>
+ 
+
+/*
 #include <iostream>
 #include <chrono>
 #include <thread>
 #include <iomanip>
-
-#include <collector/monitor/perfomance_monitor.h>
-#include <collector/monitor/components.h>
-#include <collector/json/json.h>
-
-
-#pragma comment(lib, "Pdh.lib")
+#include <memory>
 
 #include <nvml.h>
+*/
 
-namespace nl = nlohmann;
-
-struct UsageData
-{
-    kabo::monitor::CPUUsage cpu;
-    kabo::monitor::GPUUsage gpu;
-};
-
-
-void to_json(nl::json& j, const UsageData& data) {
-    j["cpu"] = {{ "utilization", data.cpu.utilization }};
-    j["gpu"] = {
-        { "temperature", data.gpu.temperature },
-        { "utilization", data.gpu.utilization }
-    };
-}
 
 
 int main()
 {
     using namespace std::chrono_literals;
     using namespace kabo::monitor;
+    using namespace kabo::net;
 
+    auto perfomance_monitor = std::make_unique<PerfomanceMonitor>();
+    auto sender = std::make_unique<UsageSender>();
+    sender->Connect("127.0.0.1", 5555);
 
+    while (true)
+    {
+        auto cpu_usage = perfomance_monitor->GetCPUUsage();
+
+        UsageData data;
+        data.cpu.utilization = cpu_usage.utilization;
+
+        sender->SendJson(data);
+
+        std::this_thread::sleep_for(1s);
+    }
+
+    /*
     UsageData data;
     data.cpu.utilization = 40.0;
     data.gpu.temperature = 55;
     data.gpu.utilization = 15;
 
-    nl::json j = data;
-    std::cout << j << std::endl;
+    sender->SendJson<UsageData>(data);
+    */
 
     /*
-    PerfomanceMonitor perfomance_monitor;
 
     nvmlInit();
 

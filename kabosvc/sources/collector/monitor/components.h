@@ -1,8 +1,9 @@
 #pragma once
 
-#include <Windows.h>
+#include <collector/json/json.h>
 
 #include <cstdint>
+
 
 namespace kabo::monitor {
 
@@ -26,14 +27,32 @@ struct CPU
 
 struct CPUUsage
 {
+    inline CPUUsage() : utilization(0) {
+    }
+
     double utilization;
 };
 
-
 struct GPUUsage
 {
+    inline GPUUsage() : temperature(0), utilization(0) {
+    }
+
     uint32_t temperature;
     uint32_t utilization;
 };
 
+
+struct UsageData
+{
+    CPUUsage cpu;
+    GPUUsage gpu;
+};
+
+
+
+void to_json(nlohmann::json& j, const kabo::monitor::UsageData& data);
+
+
 }
+

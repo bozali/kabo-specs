@@ -1,7 +1,9 @@
 // Modules to control application life and create native browser window
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow, ipcMain } = require('electron')
 const path = require('path')
 const isDev = require('electron-is-dev')
+
+const net = require("net");
 
 const createWindow = () => {
 	// Create the browser window.
@@ -9,9 +11,11 @@ const createWindow = () => {
 		frame: true, // removes the frame from the BrowserWindow. It is advised that you either create a custom menu bar or remove this line
 		webPreferences: {
 			devTools: isDev, // toggles whether devtools are available. to use node write window.require('<node-name>')
-			nodeIntegration: true // turn this off if you don't mean to use node
+			nodeIntegration: true, // turn this off if you don't mean to use node
+			enableRemoteModule: true,
+			contextIsolation: false
 		},
-	})
+	});
 
 	mainWindow.removeMenu();
 	mainWindow.menuBarVisible = false;
@@ -24,14 +28,18 @@ const createWindow = () => {
 	)
 
 	// Open the DevTools. will only work if webPreferences::devTools is true
-	mainWindow.webContents.openDevTools()
+	mainWindow.webContents.openDevTools();
 }
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on('ready', () => {
-	createWindow()
+	createWindow();
+
+	var server = new net.Server(socket => socket.on("data", data => console.log(Buffer.from(data).toString())));
+
+	server.listen(5555, "127.0.0.1");
 
 	app.on('activate', () => {
 		// On macOS it's common to re-create a window in the app when the
@@ -52,3 +60,19 @@ app.on('window-all-closed', () => {
 // code. You can also put them in separate files and require them here.
 
 // to access anything in here use window.require('electron').remote
+
+/*
+ipcMain.on("read-txt", (event, args) => {
+	console.log("IPCMAIN TRIGGERED. READING FILE");
+
+	fs.readFile("C:\\Users\\alibo\\OneDrive\\Desktop\\test.txt", "utf-8", (err, data) => {
+		console.log("SENDING DATA TO IPCRENDERER");
+		console.log(data);
+
+		event.sender.send("read-success", data);
+		// console.log(data);
+		// ipcMain.emit("read-txt", {data});
+		// mainWindow.webContents.send("read-txt", {data});
+	});
+});
+*/
